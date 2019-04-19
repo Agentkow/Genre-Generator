@@ -1,0 +1,69 @@
+﻿RPG
+Fighting
+Puzzle
+Beat'em Up
+Dating Sim
+Simulator
+Rhythm
+Platformer
+Racing
+Sports
+Shooter
+Survival
+Shoot'em Up
+Card Game
+Arena
+Strategy
+Management
+Board Game
+Builder
+Stealth
+Tower Defense
+Fishing
+Hunting
+Hack and Slash
+Horror
+Idle
+Farming
+Arcade
+Exploration
+Runner
+Pinball
+Mining
+MMO
+Action
+Adventure
+Bullet Hell
+Cooking
+Typing
+Pinball
+Physics
+Hidden Objects
+MOBA
+Battle Royal
+RTS
+Dungeon Crawler
+Table Top
+Simulation
+Party
+Walking Sim
+Visual Novel
+Point & Click
+Action RPG
+Action Adventure
+JRPG
+CRPG
+Chess
+Golf
+Escape
+Pet Sim
+Baseball
+Basketball
+Snowboarding
+Mini Golf
+Tennis
+Skateboarding
+Hockey
+Bowling
+God
+Brawler
