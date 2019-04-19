@@ -18,11 +18,11 @@ public class Manager : MonoBehaviour
     private TextAsset list_3;
 
     [SerializeField]
-    private TextMeshProUGUI genre_1;
+    private TextMeshProUGUI firstRoll;
     [SerializeField]
-    private TextMeshProUGUI genre_2;
+    private TextMeshProUGUI secondRoll;
     [SerializeField]
-    private TextMeshProUGUI genre_3;
+    private TextMeshProUGUI thirdRoll;
 
     private string[] firstList;
     private string[] secondList;
@@ -49,9 +49,9 @@ public class Manager : MonoBehaviour
 
     public void Roulette()
     {
-        genre_1.text = firstList[Random.Range(0, firstList.Length)].ToString();
-        genre_2.text = secondList[Random.Range(0, secondList.Length)].ToString();
-        genre_3.text = thirdList[Random.Range(0, thirdList.Length)].ToString();
+        firstRoll.text = firstList[Random.Range(0, firstList.Length)].ToString();
+        secondRoll.text = secondList[Random.Range(0, secondList.Length)].ToString();
+        thirdRoll.text = thirdList[Random.Range(0, thirdList.Length)].ToString();
 
     }
 
