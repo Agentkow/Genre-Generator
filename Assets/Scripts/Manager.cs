@@ -60,8 +60,8 @@ public class Manager : MonoBehaviour
     void Start()
     {
         holdSetting = ReadTextFile(settingString);
-        holdDescript = ReadTextFile(settingString);
-        holdBase = ReadTextFile(settingString);
+        holdDescript = ReadTextFile(descriptString);
+        holdBase = ReadTextFile(baseString);
 
         holdSettingReset = ReadTextFile(settingStringDefault);
         holdDescriptReset = ReadTextFile(descriptStringDefault);
@@ -142,13 +142,13 @@ public class Manager : MonoBehaviour
         else if (checkString == "Input New Descript")
         {
             AddNew(descriptString, line);
-            holdDescript = ReadTextFile(settingString);
+            holdDescript = ReadTextFile(descriptString);
             secondList = holdDescript.Split('\n');
         }
         else if (true)
         {
             AddNew(baseString, line);
-            holdBase = ReadTextFile(settingString);
+            holdBase = ReadTextFile(baseString);
             thirdList = holdBase.Split('\n');
         }
         
