@@ -1,4 +1,4 @@
-﻿Psychological
+Psychological
 Crafting
 Third Person
 Real-Time
@@ -69,3 +69,6 @@ Assassin
 Spelling
 Nonlinear
 Item-based
+Gangster
+Massive Multiplayer
+3 Vs 3

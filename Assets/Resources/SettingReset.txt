@@ -1,6 +1,6 @@
 ﻿Retro
 Subnautical
-Western
+Wild West
 Grim-dark
 Zombie
 Sci-Fi
@@ -95,3 +95,8 @@ Transhumanistic
 1990's
 1980's
 Historical
+1-bit
+8-bit
+Criminal
+Lofi
+Aquatic

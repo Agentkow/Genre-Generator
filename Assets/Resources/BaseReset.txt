@@ -15,7 +15,7 @@ Card Game
 Arena
 Strategy
 Management
-Board Game
+Board
 Builder
 Stealth
 Tower Defense
@@ -67,3 +67,4 @@ Hockey
 Bowling
 God
 Brawler
+Ping Pong
