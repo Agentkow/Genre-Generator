@@ -72,3 +72,22 @@ Item-based
 Gangster
 Massive Multiplayer
 3 Vs 3
+Boss Rush
+Blacksmithing
+Shopkeeping
+Dice-based
+Card-based
+Lumberjacking
+Mech Driving
+Money-based
+Researching
+Climbing
+Clue-based
+Demolition
+Chemical-based
+Console-controlled
+Paper-folding
+Team-based
+Mineral-based
+Size-based
+Gardening
