@@ -13,6 +13,7 @@ public class Manager : MonoBehaviour
 {
 #pragma warning disable 0649
 #pragma warning disable 0414
+    #region Info setup
     private string settingStringPC = "Assets/Resources/Setting.txt";
     private string descriptStringPC = "Assets/Resources/Descript.txt";
     private string baseStringPC = "Assets/Resources/Base.txt";
@@ -24,7 +25,7 @@ public class Manager : MonoBehaviour
     private string setting = "Setting";
     private string descript ="Descript";
     private string bases = "Base";
-
+    
     private string holdSetting;
     private string holdDescript;
     private string holdBase;
@@ -58,19 +59,9 @@ public class Manager : MonoBehaviour
     private bool setThird = false;
     private bool resetCheck = false;
 
-    // Start is called before the first frame update
-    void Start()
+    #endregion
+    public void StartUp()
     {
-
-        if (File.Exists(Path.Combine(Application.streamingAssetsPath + "/Settings.txt")))
-        {
-            testText.text = "file exist";
-        }
-        else
-        {
-            testText.text = "false";
-        }
-
         if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)
         {
             holdSetting = ReadTextFile(settingStringPC);
@@ -80,20 +71,48 @@ public class Manager : MonoBehaviour
             holdSettingReset = ReadTextFile(settingStringDefaultPC);
             holdDescriptReset = ReadTextFile(descriptStringDefaultPC);
             holdBaseReset = ReadTextFile(baseStringDefaultPC);
-            
+
         }
         else if (Application.platform == RuntimePlatform.Android)
         {
+            testText.text = "android is on";
+            //holdSettingReset = MakeSettingsFile("/SettingReset.txt");
+            //holdDescriptReset = MakeDescriptFile("/Descript.txt");
+            //holdBaseReset = MakeBaseFile("/Base.txt");
 
-            holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
-            holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
-            holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+            if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
+            {
+                testText.text = "files already here";
+                holdSetting = MakeSettingsFile("/Setting.txt");
+            }
+            else
+            {
+                testText.text = "new files made";
+                holdSetting = MakeSettingsFile("/Setting.txt");
 
-            holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
-            holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
-            holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
+            }
 
+            if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
+            {
+                holdDescript = MakeDescriptFile("/Descript.txt");
+            }
+            else
+            {
+                holdDescript = MakeDescriptFile("/Descript.txt");
+                
+                testText.text = "new files made";
+            }
+            
+            if (File.Exists(Application.persistentDataPath + "/Base.txt"))
+            {
+                holdBase = MakeBaseFile("/Base.txt");
+            }
+            else
+            {
+                holdBase = MakeBaseFile("/Base.txt");
+                testText.text = "new files made";
 
+            }
         }
         else
         {
@@ -105,34 +124,341 @@ public class Manager : MonoBehaviour
             holdDescriptReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/DescriptReset.txt"));
             holdBaseReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/BaseReset.txt"));
 
-            if (File.Exists(Path.Combine(Application.streamingAssetsPath + "/Settings.txt")))
-            {
-                testText.text = "ham";
-            }
-            else
-            {
-                testText.text = "false";
-            }
         }
 
-        
+
 
         firstList = holdSetting.Split('\n');
         secondList = holdDescript.Split('\n');
         thirdList = holdBase.Split('\n');
-        
     }
-    
+
+    #region setting files
+    private string MakeSettingsFile(string pathEnd)
+    {
+        string path = Application.persistentDataPath + pathEnd;
+        StreamWriter writer = new StreamWriter(path, false);
+        writer.Write("Retro" +
+            "\nSubnautical" +
+            "\nWild West" +
+            "\nGrim-dark" +
+            "\nZombie" +
+            "\nSci-Fi" +
+            "\nMedieval" +
+            "\nPost-apocaliptic" +
+            "\nSteampunk Cyberpunk" +
+            "\nFantasy" +
+            "\nMilitary" +
+            "\nPrehistoric" +
+            "\nPirate" +
+            "\nDetective" +
+            "\nSupernatural" +
+            "\nGothic" +
+            "\nAbstract" +
+            "\nModern" +
+            "\nSub-Terranean" +
+            "\nPolitical" +
+            "\nLovecraftian" +
+            "\nDystopian" +
+            "\nNordic" +
+            "\nSuper Hero" +
+            "\nMythological" +
+            "\nDisco" +
+            "\nAtmospheric" +
+            "\nMedical" +
+            "\nTime-Traveling" +
+            "\nPhilisophical" +
+            "\nCartoony" +
+            "\nScientific" +
+            "\nNaval" +
+            "\nAerial" +
+            "\nHand-drawn" +
+            "\nAlien" +
+            "\nFuturistic" +
+            "\nMinimalistic" +
+            "\nTribal" +
+            "\nRobotic" +
+            "\nNinja" +
+            "\nPsychedelic" +
+            "\nCulinary" +
+            "\nOriental " +
+            "\nGrotesque" +
+            "\nEgyptian" +
+            "\nRoman" +
+            "\nArctic" +
+            "\nTechnological" +
+            "\nMagical" +
+            "\nEducational" +
+            "\nMonster" +
+            "\nRealistic" +
+            "\nKung-fu" +
+            "\nAnime" +
+            "\nEnvironmental" +
+            "\nCute Relaxing" +
+            "\nParkour" +
+            "\nDemonic" +
+            "\nVoxel" +
+            "\nCyberspace" +
+            "\nSpiritual" +
+            "\nMechanical" +
+            "\nRussian" +
+            "\n2.5D" +
+            "\n3D" +
+            "\n2D" +
+            "\nRealistic" +
+            "\nStylized" +
+            "\nReligious" +
+            "\nBiological" +
+            "\nNSFW" +
+            "\nFashionistic" +
+            "\nComedic" +
+            "\nAthletic" +
+            "\nJanitorial" +
+            "\nBrutal" +
+            "\nBusiness" +
+            "\nExperimental" +
+            "\nRenaissance" +
+            "\nLow Poly" +
+            "\nHigh Poly" +
+            "\nPixel" +
+            "\n16-bit" +
+            "\n64-bit" +
+            "\nMental" +
+            "\nVaporwave" +
+            "\nSynthwave" +
+            "\nCold War" +
+            "\nWorld War 2" +
+            "\nWorld War 1" +
+            "\nTranshumanistic" +
+            "\n1990's" +
+            "\n1980's" +
+            "\nHistorical" +
+            "\n1-bit" +
+            "\n8-bit" +
+            "\nCriminal" +
+            "\nLofi" +
+            "\nAquatic" +
+            "\nDifficult" +
+            "\nFamily Friendly" +
+            "\nBritish" +
+            "\nBreakfast" +
+            "\nSuburban" +
+            "\nOrigami" +
+            "\nGreek");
+        writer.Close();
+
+        StreamReader read = new StreamReader(pathEnd, true);
+        string entry = read.ReadToEnd();
+        read.Close();
+        return entry;
+    }
+
+    #endregion
+
+    #region description files
+    private string MakeDescriptFile(string pathEnd)
+    {
+        string path = Application.persistentDataPath + pathEnd;
+        StreamWriter writer = new StreamWriter(path, false);
+        writer.Write("Psychological" +
+            "\nCrafting" +
+            "\nThird Person" +
+            "\nReal-Time" +
+            "\nRogue-like" +
+            "\nRogue-lite" +
+            "\nPvP" +
+            "\nFirst Person" +
+            "\nCo-op" +
+            "\nOpen World" +
+            "\nDungeon - Crawling" +
+            "\nMetroidvania" +
+            "\nTactical" +
+            "\nNoir" +
+            "\nText-based" +
+            "\nAgricultural" +
+            "\nEconomic" +
+            "\nSandbox" +
+            "\nSide Scroller" +
+            "\nTurn-based" +
+            "\nInvestigative" +
+            "\nDiplomatic" +
+            "\nMusical" +
+            "\nIsometric" +
+            "\nBase-Building" +
+            "\nMatching 3" +
+            "\nGrid - based" +
+            "\nTrading" +
+            "\nPvE" +
+            "\nTop-Down" +
+            "\nFlying" +
+            "\nParty-based" +
+            "\nArchitectural" +
+            "\nClass-based" +
+            "\nViolent" +
+            "\nArtistic" +
+            "\nPuzzling" +
+            "\nCreature-Catching" +
+            "\nCompetitive" +
+            "\nVR" +
+            "\nConstruction" +
+            "\nDrawing" +
+            "\nSpy" +
+            "\nHacking" +
+            "\nProgramming" +
+            "\nFashion" +
+            "\nDesigning" +
+            "\nSpace" +
+            "\n2.5D" +
+            "\n3D" +
+            "\n2D" +
+            "\nWeather - based" +
+            "\nTraveling" +
+            "\nCleaning" +
+            "\nInventory" +
+            "\nAlchemy" +
+            "\nBrewing" +
+            "\nShopping" +
+            "\nDriving" +
+            "\nLoot-based" +
+            "\nSailing" +
+            "\nMystery" +
+            "\nMeme-based" +
+            "\nSingleplayer" +
+            "\nMultiplayer" +
+            "\nAR" +
+            "\nSniping" +
+            "\nAssassin" +
+            "\nSpelling" +
+            "\nNonlinear" +
+            "\nItem-based" +
+            "\nGangster" +
+            "\nMassive Multiplayer" +
+            "\n3 Vs 3" +
+            "\nBoss Rush" +
+            "\nBlacksmithing" +
+            "\nShopkeeping" +
+            "\nDice-based" +
+            "\nCard-based" +
+            "\nLumberjacking" +
+            "\nMech Driving" +
+            "\nMoney-based" +
+            "\nResearching" +
+            "\nClimbing" +
+            "\nClue-based" +
+            "\nDemolition" +
+            "\nChemical-based" +
+            "\nConsole-controlled" +
+            "\nPaper-folding" +
+            "\nTeam-based" +
+            "\nMineral-based" +
+            "\nSize-based" +
+            "\nGardening");
+        writer.Close();
+
+        StreamReader read = new StreamReader(pathEnd, true);
+        string entry = read.ReadToEnd();
+        read.Close();
+        return entry;
+    }
+    #endregion
+
+    #region Base files
+    private string MakeBaseFile(string pathEnd)
+    {
+        string path = Application.persistentDataPath + pathEnd;
+        StreamWriter writer = new StreamWriter(path, false);
+        writer.Write("RPG" +
+            "Fighting" +
+            "Puzzle" +
+            "Beat'em Up" +
+            "Dating Sim" +
+            "Simulator" +
+            "Rhythm" +
+            "Platformer" +
+            "Racing" +
+            "Sports" +
+            "Shooter" +
+            "Survival" +
+            "Shoot'em Up" +
+            "Card Game" +
+            "Arena" +
+            "Strategy" +
+            "Management" +
+            "Board" +
+            "Builder" +
+            "Stealth" +
+            "Tower Defense" +
+            "Fishing" +
+            "Hunting" +
+            "Hack and Slash" +
+            "Horror" +
+            "Idle" +
+            "Farming" +
+            "Arcade" +
+            "Exploration" +
+            "Runner" +
+            "Pinball" +
+            "Mining" +
+            "MMO" +
+            "Action" +
+            "Adventure" +
+            "Bullet Hell" +
+            "Cooking" +
+            "Typing" +
+            "Pinball" +
+            "Physics" +
+            "Hidden Objects" +
+            "MOBA" +
+            "Battle Royal" +
+            "RTS" +
+            "Dungeon Crawler" +
+            "Table Top" +
+            "Simulation" +
+            "Party" +
+            "Walking Sim" +
+            "Visual Novel" +
+            "Point & Click" +
+            "Action RPG" +
+            "Action Adventure" +
+            "JRPG" +
+            "CRPG" +
+            "Chess" +
+            "Golf" +
+            "Escape" +
+            "Pet Sim" +
+            "Baseball" +
+            "Basketball" +
+            "Snowboarding" +
+            "Mini Golf" +
+            "Tennis" +
+            "Skateboarding" +
+            "Hockey" +
+            "Bowling" +
+            "God" +
+            "Brawler" +
+            "Ping Pong" +
+            "Dress-up");
+        writer.Close();
+
+        StreamReader read = new StreamReader(pathEnd, true);
+        string entry = read.ReadToEnd();
+        read.Close();
+        return entry;
+    }
+    #endregion
+
+    #region Base program
     private string ReadTextFile(string path)
     {
         string text;
-        //Read the text from directly from the test.txt file
-        StreamReader reader = new StreamReader(path);
-        text = reader.ReadToEnd();
-        reader.Close();
-        return text;
+            StreamReader reader = new StreamReader(path, true);
+            text = reader.ReadToEnd();
+            //testText.text = "all files read";
+            reader.Close();
+            return text;
+       
     }
-
+    
     private void FixedUpdate()
     {
         if(setFirst)
@@ -146,6 +472,7 @@ public class Manager : MonoBehaviour
         if (setThird)
         {
             thirdRoll.text = thirdList[Random.Range(0, thirdList.Length)].ToString();
+            testText.text = "Roulette activated";
         }
     }
 
@@ -162,9 +489,7 @@ public class Manager : MonoBehaviour
         StartCoroutine(ThirdTimer());
 
     }
-
-
-
+    
     IEnumerator FirstTimer()
     {
         yield return new WaitForSeconds(0.4f);
@@ -194,6 +519,7 @@ public class Manager : MonoBehaviour
             {
                 AddNew(Application.persistentDataPath + "/Settings.txt", line);
                 holdSetting = ReadTextFile(Application.persistentDataPath + "/Settings.txt");
+                testText.text = "Setting added";
             }
             else
             {
@@ -214,6 +540,7 @@ public class Manager : MonoBehaviour
             {
                 AddNew(Application.persistentDataPath + "/Descript.txt", line);
                 holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
+                testText.text = "Description added";
             }
             else
             {
@@ -234,6 +561,7 @@ public class Manager : MonoBehaviour
             {
                 AddNew(Application.persistentDataPath + "/Base.txt", line);
                 holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+                testText.text = "Base added";
             }
             else
             {
@@ -245,7 +573,6 @@ public class Manager : MonoBehaviour
         }
         
     }
-
 
     private void AddNew(string path, string addLine)
     {
@@ -282,6 +609,7 @@ public class Manager : MonoBehaviour
                 StreamWriter thirdSet = new StreamWriter(Application.persistentDataPath + "/Base.txt", false);
                 thirdSet.Write(holdBaseReset);
                 thirdSet.Close();
+                testText.text = "Reset ";
             }
             else
             {
@@ -296,8 +624,7 @@ public class Manager : MonoBehaviour
                 thirdSet.Close();
             }
             
-
-
+            
             resetText.text = "All lists reset to default";
             resetCheck = false;
         }
@@ -324,26 +651,7 @@ public class Manager : MonoBehaviour
                Application.Quit ();
 #endif
     }
+    #endregion
 }
 
- 
 
-public class GenreList
-{
-
-    public List<string> stuff = new List<string>();
-    public string choice;
-    static Random random = new Random();
-
-
-    public void makeList(string input)
-    {
-        stuff.Add(input);
-    }
-    public string roulette()
-    {
-        int rnd = Random.Range(0,stuff.Count);
-        choice = stuff[rnd];
-        return choice;
-    }
-}
