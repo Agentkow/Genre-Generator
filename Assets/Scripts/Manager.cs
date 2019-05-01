@@ -48,8 +48,6 @@ public class Manager : MonoBehaviour
 
     [SerializeField]
     private TMP_Text resetText;
-    [SerializeField]
-    private TMP_Text testText;
 
     private string[] firstList;
     private string[] secondList;
@@ -76,14 +74,12 @@ public class Manager : MonoBehaviour
         }
         else if (Application.platform == RuntimePlatform.Android)
         {
-            testText.text = "android is on";
             MakeSettingsFile("/SettingReset.txt");
-            MakeDescriptFile("/Descript.txt");
-            MakeBaseFile("/Base.txt");
+            MakeDescriptFile("/DescriptReset.txt");
+            MakeBaseFile("/BaseReset.txt");
 
             if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
             {
-                testText.text = "files are here";
                 
                 MakeSettingsFile("/Setting.txt");
                 
@@ -93,7 +89,6 @@ public class Manager : MonoBehaviour
             }
             else
             {
-                testText.text = "new files made";
                 MakeSettingsFile("/Setting.txt");
 
                 holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
@@ -102,40 +97,72 @@ public class Manager : MonoBehaviour
 
             if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
             {
+                MakeDescriptFile("/Descript.txt");
+
                 holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
+                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
             }
             else
             {
                 MakeDescriptFile("/Descript.txt");
-                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
-                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
+
             }
             
             if (File.Exists(Application.persistentDataPath + "/Base.txt"))
-            {
-                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
-            }
-            else
             {
                 MakeBaseFile("/Base.txt");
                 holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
                 holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
             }
+            else
+            {
+                MakeBaseFile("/Base.txt");
+                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+            }
         }
         else
         {
-            holdSetting = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Settings.txt"));
-            holdDescript = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Descript.txt"));
-            holdBase = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Base.txt"));
+            if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
+            {
 
-            holdSettingReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/SettingReset.txt"));
-            holdDescriptReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/DescriptReset.txt"));
-            holdBaseReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/BaseReset.txt"));
+                MakeSettingsFile("/Setting.txt");
 
+                holdSetting = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Setting.txt"));
+                holdSettingReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/SettingReset.txt"));
+
+            }
+            else
+            {
+                MakeSettingsFile("/Setting.txt");
+
+                holdSetting = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Setting.txt"));
+
+            }
+
+            if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
+            {
+                holdDescript = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Descript.txt"));
+            }
+            else
+            {
+                MakeDescriptFile("/Descript.txt");
+                holdDescript = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Descript.txt"));
+                holdDescriptReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/DescriptReset.txt"));
+            }
+
+            if (File.Exists(Path.Combine(Application.streamingAssetsPath + "/Base.txt")))
+            {
+                holdBase = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Base.txt"));
+            }
+            else
+            {
+                MakeBaseFile("/Base.txt");
+                holdBase = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Base.txt"));
+                holdBaseReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/BaseReset.txt"));
+            }
         }
 
-
-        testText.text = holdSetting;
+        
         firstList = holdSetting.Split('\n');
         secondList = holdDescript.Split('\n');
         thirdList = holdBase.Split('\n');
@@ -154,7 +181,8 @@ public class Manager : MonoBehaviour
             "\nSci-Fi" +
             "\nMedieval" +
             "\nPost-apocaliptic" +
-            "\nSteampunk Cyberpunk" +
+            "\nSteampunk" +
+            "\nCyberpunk" +
             "\nFantasy" +
             "\nMilitary" +
             "\nPrehistoric" +
@@ -202,7 +230,8 @@ public class Manager : MonoBehaviour
             "\nKung-fu" +
             "\nAnime" +
             "\nEnvironmental" +
-            "\nCute Relaxing" +
+            "\nCute" +
+            "\nRelaxing" +
             "\nParkour" +
             "\nDemonic" +
             "\nVoxel" +
@@ -273,7 +302,7 @@ public class Manager : MonoBehaviour
             "\nFirst Person" +
             "\nCo-op" +
             "\nOpen World" +
-            "\nDungeon - Crawling" +
+            "\nDungeon-Crawling" +
             "\nMetroidvania" +
             "\nTactical" +
             "\nNoir" +
@@ -314,7 +343,7 @@ public class Manager : MonoBehaviour
             "\n2.5D" +
             "\n3D" +
             "\n2D" +
-            "\nWeather - based" +
+            "\nWeather-based" +
             "\nTraveling" +
             "\nCleaning" +
             "\nInventory" +
@@ -466,7 +495,6 @@ public class Manager : MonoBehaviour
         if (setThird)
         {
             thirdRoll.text = thirdList[UnityEngine.Random.Range(0, thirdList.Length)].ToString();
-            testText.text = "Roulette activated";
         }
     }
 
@@ -513,7 +541,6 @@ public class Manager : MonoBehaviour
             {
                 AddNew(Application.persistentDataPath + "/Settings.txt", line);
                 holdSetting = ReadTextFile(Application.persistentDataPath + "/Settings.txt");
-                testText.text = "Setting added";
             }
             else
             {
@@ -534,7 +561,6 @@ public class Manager : MonoBehaviour
             {
                 AddNew(Application.persistentDataPath + "/Descript.txt", line);
                 holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
-                testText.text = "Description added";
             }
             else
             {
@@ -555,7 +581,6 @@ public class Manager : MonoBehaviour
             {
                 AddNew(Application.persistentDataPath + "/Base.txt", line);
                 holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
-                testText.text = "Base added";
             }
             else
             {
@@ -603,7 +628,6 @@ public class Manager : MonoBehaviour
                 StreamWriter thirdSet = new StreamWriter(Application.persistentDataPath + "/Base.txt", false);
                 thirdSet.Write(holdBaseReset);
                 thirdSet.Close();
-                testText.text = "Reset ";
             }
             else
             {
