@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public class Manager : MonoBehaviour
 {
@@ -76,42 +77,49 @@ public class Manager : MonoBehaviour
         else if (Application.platform == RuntimePlatform.Android)
         {
             testText.text = "android is on";
-            //holdSettingReset = MakeSettingsFile("/SettingReset.txt");
-            //holdDescriptReset = MakeDescriptFile("/Descript.txt");
-            //holdBaseReset = MakeBaseFile("/Base.txt");
+            MakeSettingsFile("/SettingReset.txt");
+            MakeDescriptFile("/Descript.txt");
+            MakeBaseFile("/Base.txt");
 
             if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
             {
-                testText.text = "files already here";
-                holdSetting = MakeSettingsFile("/Setting.txt");
+                testText.text = "files are here";
+                
+                MakeSettingsFile("/Setting.txt");
+                
+                holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
+                holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
+
             }
             else
             {
                 testText.text = "new files made";
-                holdSetting = MakeSettingsFile("/Setting.txt");
+                MakeSettingsFile("/Setting.txt");
+
+                holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
 
             }
 
             if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
             {
-                holdDescript = MakeDescriptFile("/Descript.txt");
+                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
             }
             else
             {
-                holdDescript = MakeDescriptFile("/Descript.txt");
-                
-                testText.text = "new files made";
+                MakeDescriptFile("/Descript.txt");
+                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
+                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
             }
             
             if (File.Exists(Application.persistentDataPath + "/Base.txt"))
             {
-                holdBase = MakeBaseFile("/Base.txt");
+                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
             }
             else
             {
-                holdBase = MakeBaseFile("/Base.txt");
-                testText.text = "new files made";
-
+                MakeBaseFile("/Base.txt");
+                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+                holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
             }
         }
         else
@@ -127,14 +135,14 @@ public class Manager : MonoBehaviour
         }
 
 
-
+        testText.text = holdSetting;
         firstList = holdSetting.Split('\n');
         secondList = holdDescript.Split('\n');
         thirdList = holdBase.Split('\n');
     }
 
     #region setting files
-    private string MakeSettingsFile(string pathEnd)
+    public void MakeSettingsFile(string pathEnd)
     {
         string path = Application.persistentDataPath + pathEnd;
         StreamWriter writer = new StreamWriter(path, false);
@@ -246,17 +254,12 @@ public class Manager : MonoBehaviour
             "\nOrigami" +
             "\nGreek");
         writer.Close();
-
-        StreamReader read = new StreamReader(pathEnd, true);
-        string entry = read.ReadToEnd();
-        read.Close();
-        return entry;
     }
 
     #endregion
 
     #region description files
-    private string MakeDescriptFile(string pathEnd)
+    private void MakeDescriptFile(string pathEnd)
     {
         string path = Application.persistentDataPath + pathEnd;
         StreamWriter writer = new StreamWriter(path, false);
@@ -354,96 +357,87 @@ public class Manager : MonoBehaviour
             "\nSize-based" +
             "\nGardening");
         writer.Close();
-
-        StreamReader read = new StreamReader(pathEnd, true);
-        string entry = read.ReadToEnd();
-        read.Close();
-        return entry;
     }
     #endregion
 
     #region Base files
-    private string MakeBaseFile(string pathEnd)
+    private void MakeBaseFile(string pathEnd)
     {
         string path = Application.persistentDataPath + pathEnd;
         StreamWriter writer = new StreamWriter(path, false);
         writer.Write("RPG" +
-            "Fighting" +
-            "Puzzle" +
-            "Beat'em Up" +
-            "Dating Sim" +
-            "Simulator" +
-            "Rhythm" +
-            "Platformer" +
-            "Racing" +
-            "Sports" +
-            "Shooter" +
-            "Survival" +
-            "Shoot'em Up" +
-            "Card Game" +
-            "Arena" +
-            "Strategy" +
-            "Management" +
-            "Board" +
-            "Builder" +
-            "Stealth" +
-            "Tower Defense" +
-            "Fishing" +
-            "Hunting" +
-            "Hack and Slash" +
-            "Horror" +
-            "Idle" +
-            "Farming" +
-            "Arcade" +
-            "Exploration" +
-            "Runner" +
-            "Pinball" +
-            "Mining" +
-            "MMO" +
-            "Action" +
-            "Adventure" +
-            "Bullet Hell" +
-            "Cooking" +
-            "Typing" +
-            "Pinball" +
-            "Physics" +
-            "Hidden Objects" +
-            "MOBA" +
-            "Battle Royal" +
-            "RTS" +
-            "Dungeon Crawler" +
-            "Table Top" +
-            "Simulation" +
-            "Party" +
-            "Walking Sim" +
-            "Visual Novel" +
-            "Point & Click" +
-            "Action RPG" +
-            "Action Adventure" +
-            "JRPG" +
-            "CRPG" +
-            "Chess" +
-            "Golf" +
-            "Escape" +
-            "Pet Sim" +
-            "Baseball" +
-            "Basketball" +
-            "Snowboarding" +
-            "Mini Golf" +
-            "Tennis" +
-            "Skateboarding" +
-            "Hockey" +
-            "Bowling" +
-            "God" +
-            "Brawler" +
-            "Ping Pong" +
-            "Dress-up");
+            "\nFighting" +
+            "\nPuzzle" +
+            "\nBeat'em Up" +
+            "\nDating Sim" +
+            "\nSimulator" +
+            "\nRhythm" +
+            "\nPlatformer" +
+            "\nRacing" +
+            "\nSports" +
+            "\nShooter" +
+            "\nSurvival" +
+            "\nShoot'em Up" +
+            "\nCard Game" +
+            "\nArena" +
+            "\nStrategy" +
+            "\nManagement" +
+            "\nBoard" +
+            "\nBuilder" +
+            "\nStealth" +
+            "\nTower Defense" +
+            "\nFishing" +
+            "\nHunting" +
+            "\nHack and Slash" +
+            "\nHorror" +
+            "\nIdle" +
+            "\nFarming" +
+            "\nArcade" +
+            "\nExploration" +
+            "\nRunner" +
+            "\nPinball" +
+            "\nMining" +
+            "\nMMO" +
+            "\nAction" +
+            "\nAdventure" +
+            "\nBullet Hell" +
+            "\nCooking" +
+            "\nTyping" +
+            "\nPinball" +
+            "\nPhysics" +
+            "\nHidden Objects" +
+            "\nMOBA" +
+            "\nBattle Royal" +
+            "\nRTS" +
+            "\nDungeon Crawler" +
+            "\nTable Top" +
+            "\nSimulation" +
+            "\nParty" +
+            "\nWalking Sim" +
+            "\nVisual Novel" +
+            "\nPoint & Click" +
+            "\nAction RPG" +
+            "\nAction Adventure" +
+            "\nJRPG" +
+            "\nCRPG" +
+            "\nChess" +
+            "\nGolf" +
+            "\nEscape" +
+            "\nPet Sim" +
+            "\nBaseball" +
+            "\nBasketball" +
+            "\nSnowboarding" +
+            "\nMini Golf" +
+            "\nTennis" +
+            "\nSkateboarding" +
+            "\nHockey" +
+            "\nBowling" +
+            "\nGod" +
+            "\nBrawler" +
+            "\nPing Pong" +
+            "\nDress-up");
         writer.Close();
-
-        StreamReader read = new StreamReader(pathEnd, true);
-        string entry = read.ReadToEnd();
-        read.Close();
-        return entry;
+        
     }
     #endregion
 
@@ -463,15 +457,15 @@ public class Manager : MonoBehaviour
     {
         if(setFirst)
         {
-            firstRoll.text = firstList[Random.Range(0, firstList.Length)].ToString();
+            firstRoll.text = firstList[UnityEngine.Random.Range(0, firstList.Length)].ToString();
         }
         if (setSecond)
         {
-            secondRoll.text = secondList[Random.Range(0, secondList.Length)].ToString();
+            secondRoll.text = secondList[UnityEngine.Random.Range(0, secondList.Length)].ToString();
         }
         if (setThird)
         {
-            thirdRoll.text = thirdList[Random.Range(0, thirdList.Length)].ToString();
+            thirdRoll.text = thirdList[UnityEngine.Random.Range(0, thirdList.Length)].ToString();
             testText.text = "Roulette activated";
         }
     }
