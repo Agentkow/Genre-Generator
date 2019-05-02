@@ -14,7 +14,7 @@ public class Manager : MonoBehaviour
 {
 #pragma warning disable 0649
 #pragma warning disable 0414
-    #region Info setup
+    #region Variables
     private string settingStringPC = "Assets/Resources/Setting.txt";
     private string descriptStringPC = "Assets/Resources/Descript.txt";
     private string baseStringPC = "Assets/Resources/Base.txt";
@@ -52,12 +52,21 @@ public class Manager : MonoBehaviour
     private string[] firstList;
     private string[] secondList;
     private string[] thirdList;
-    
-    private bool setFirst = false;
-    private bool setSecond = false;
-    private bool setThird = false;
-    private bool resetCheck = false;
 
+    [SerializeField]
+    private bool setFirst = false;
+    [SerializeField]
+    private bool setSecond = false;
+    [SerializeField]
+    private bool setThird = false;
+
+    private bool resetCheck = false;
+    
+    private bool firstLock = true;
+    private bool secondLock = true;
+    private bool thirdLock = true;
+
+    
     #endregion
     public void StartUp()
     {
@@ -481,15 +490,16 @@ public class Manager : MonoBehaviour
     
     private void FixedUpdate()
     {
-        if(setFirst)
+
+        if(setFirst && firstLock)
         {
             firstRoll.text = firstList[UnityEngine.Random.Range(0, firstList.Length)].ToString();
         }
-        if (setSecond)
+        if (setSecond && secondLock)
         {
             secondRoll.text = secondList[UnityEngine.Random.Range(0, secondList.Length)].ToString();
         }
-        if (setThird)
+        if (setThird && thirdLock)
         {
             thirdRoll.text = thirdList[UnityEngine.Random.Range(0, thirdList.Length)].ToString();
         }
@@ -509,6 +519,40 @@ public class Manager : MonoBehaviour
 
     }
     
+    public void FirstLock()
+    {
+        if (firstLock)
+        {
+            firstLock = false;
+        }
+        else
+        {
+            firstLock = true;
+        }
+    }
+    public void SecondLock()
+    {
+        if (secondLock)
+        {
+            secondLock = false;
+        }
+        else
+        {
+            secondLock = true;
+        }
+    }
+    public void ThirdLock()
+    {
+        if (thirdLock)
+        {
+            thirdLock = false;
+        }
+        else
+        {
+            thirdLock = true;
+        }
+    }
+
     IEnumerator FirstTimer()
     {
         yield return new WaitForSeconds(0.4f);
