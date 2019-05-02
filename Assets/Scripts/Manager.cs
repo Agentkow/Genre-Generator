@@ -81,8 +81,6 @@ public class Manager : MonoBehaviour
             if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
             {
                 
-                MakeSettingsFile("/Setting.txt");
-                
                 holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
                 holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
 
@@ -90,27 +88,25 @@ public class Manager : MonoBehaviour
             else
             {
                 MakeSettingsFile("/Setting.txt");
-
                 holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
+                holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
 
             }
 
             if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
             {
-                MakeDescriptFile("/Descript.txt");
-
                 holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
                 holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
             }
             else
             {
                 MakeDescriptFile("/Descript.txt");
-
+                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
+                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
             }
             
             if (File.Exists(Application.persistentDataPath + "/Base.txt"))
             {
-                MakeBaseFile("/Base.txt");
                 holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
                 holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
             }
@@ -118,6 +114,7 @@ public class Manager : MonoBehaviour
             {
                 MakeBaseFile("/Base.txt");
                 holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+                holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
             }
         }
         else
