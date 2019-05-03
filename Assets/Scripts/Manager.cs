@@ -72,6 +72,49 @@ public class Manager : MonoBehaviour
     {
         if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)
         {
+            MakeSettingsFile("/SettingReset.txt");
+            MakeDescriptFile("/DescriptReset.txt");
+            MakeBaseFile("/BaseReset.txt");
+
+            if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
+            {
+
+                holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
+                holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
+
+            }
+            else
+            {
+                MakeSettingsFile("/Setting.txt");
+                holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
+                holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
+
+            }
+
+            if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
+            {
+                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
+                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
+            }
+            else
+            {
+                MakeDescriptFile("/Descript.txt");
+                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
+                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
+            }
+
+            if (File.Exists(Application.persistentDataPath + "/Base.txt"))
+            {
+                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+                holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
+            }
+            else
+            {
+                MakeBaseFile("/Base.txt");
+                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+                holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
+            }
+
             holdSetting = ReadTextFile(settingStringPC);
             holdDescript = ReadTextFile(descriptStringPC);
             holdBase = ReadTextFile(baseStringPC);
