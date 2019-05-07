@@ -107,3 +107,8 @@ Breakfast
 Suburban
 Origami
 Greek
+Gladitorial
+Festive
+Spooky
+Chinese
+VHS

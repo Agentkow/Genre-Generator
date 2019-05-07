@@ -52,7 +52,7 @@ Space
 Weather-based
 Traveling
 Cleaning
-Inventory
+Inventory-Managing
 Alchemy
 Brewing
 Shopping
@@ -85,9 +85,12 @@ Climbing
 Clue-based
 Demolition
 Chemical-based
-Console-controlled
+Christmass
 Paper-folding
 Team-based
 Mineral-based
 Size-based
 Gardening
+Scavenging
+Motion-controlled
+Halloween

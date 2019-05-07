@@ -70,154 +70,65 @@ public class Manager : MonoBehaviour
     #endregion
     public void StartUp()
     {
-        if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)
+        
+#if UNITY_EDITOR
+        holdSetting = ReadTextFile(settingStringPC);
+        holdDescript = ReadTextFile(descriptStringPC);
+        holdBase = ReadTextFile(baseStringPC);
+
+        holdSettingReset = ReadTextFile(settingStringDefaultPC);
+        holdDescriptReset = ReadTextFile(descriptStringDefaultPC);
+        holdBaseReset = ReadTextFile(baseStringDefaultPC);
+#else
+        if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
         {
-            MakeSettingsFile("/SettingReset.txt");
-            MakeDescriptFile("/DescriptReset.txt");
-            MakeBaseFile("/BaseReset.txt");
 
-            if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
-            {
+            holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
+            holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
 
-                holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
-                holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
-
-            }
-            else
-            {
-                MakeSettingsFile("/Setting.txt");
-                holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
-                holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
-
-            }
-
-            if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
-            {
-                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
-                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
-            }
-            else
-            {
-                MakeDescriptFile("/Descript.txt");
-                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
-                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
-            }
-
-            if (File.Exists(Application.persistentDataPath + "/Base.txt"))
-            {
-                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
-                holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
-            }
-            else
-            {
-                MakeBaseFile("/Base.txt");
-                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
-                holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
-            }
-
-            holdSetting = ReadTextFile(settingStringPC);
-            holdDescript = ReadTextFile(descriptStringPC);
-            holdBase = ReadTextFile(baseStringPC);
-
-            holdSettingReset = ReadTextFile(settingStringDefaultPC);
-            holdDescriptReset = ReadTextFile(descriptStringDefaultPC);
-            holdBaseReset = ReadTextFile(baseStringDefaultPC);
-
-        }
-        else if (Application.platform == RuntimePlatform.Android)
-        {
-            MakeSettingsFile("/SettingReset.txt");
-            MakeDescriptFile("/DescriptReset.txt");
-            MakeBaseFile("/BaseReset.txt");
-
-            if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
-            {
-                
-                holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
-                holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
-
-            }
-            else
-            {
-                MakeSettingsFile("/Setting.txt");
-                holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
-                holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
-
-            }
-
-            if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
-            {
-                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
-                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
-            }
-            else
-            {
-                MakeDescriptFile("/Descript.txt");
-                holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
-                holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
-            }
-            
-            if (File.Exists(Application.persistentDataPath + "/Base.txt"))
-            {
-                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
-                holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
-            }
-            else
-            {
-                MakeBaseFile("/Base.txt");
-                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
-                holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
-            }
         }
         else
         {
-            if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
-            {
+            MakeSettingsFile("/Setting.txt");
+            holdSetting = ReadTextFile(Application.persistentDataPath + "/Setting.txt");
+            holdSettingReset = ReadTextFile(Application.persistentDataPath + "/SettingReset.txt");
 
-                MakeSettingsFile("/Setting.txt");
-
-                holdSetting = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Setting.txt"));
-                holdSettingReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/SettingReset.txt"));
-
-            }
-            else
-            {
-                MakeSettingsFile("/Setting.txt");
-
-                holdSetting = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Setting.txt"));
-
-            }
-
-            if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
-            {
-                holdDescript = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Descript.txt"));
-            }
-            else
-            {
-                MakeDescriptFile("/Descript.txt");
-                holdDescript = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Descript.txt"));
-                holdDescriptReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/DescriptReset.txt"));
-            }
-
-            if (File.Exists(Path.Combine(Application.streamingAssetsPath + "/Base.txt")))
-            {
-                holdBase = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Base.txt"));
-            }
-            else
-            {
-                MakeBaseFile("/Base.txt");
-                holdBase = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Base.txt"));
-                holdBaseReset = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/BaseReset.txt"));
-            }
         }
 
-        
+        if (File.Exists(Application.persistentDataPath + "/Descript.txt"))
+        {
+            holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
+            holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
+        }
+        else
+        {
+            MakeDescriptFile("/Descript.txt");
+            holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
+            holdDescriptReset = ReadTextFile(Application.persistentDataPath + "/DescriptReset.txt");
+        }
+
+        if (File.Exists(Application.persistentDataPath + "/Base.txt"))
+        {
+            holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+            holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
+        }
+        else
+        {
+            MakeBaseFile("/Base.txt");
+            holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+            holdBaseReset = ReadTextFile(Application.persistentDataPath + "/BaseReset.txt");
+        }
+
+#endif
+
+
+
         firstList = holdSetting.Split('\n');
         secondList = holdDescript.Split('\n');
         thirdList = holdBase.Split('\n');
     }
 
-    #region setting files
+#region setting files
     public void MakeSettingsFile(string pathEnd)
     {
         string path = Application.persistentDataPath + pathEnd;
@@ -330,13 +241,18 @@ public class Manager : MonoBehaviour
             "\nBreakfast" +
             "\nSuburban" +
             "\nOrigami" +
-            "\nGreek");
+            "\nGreek" +
+            "\nGladitorial" +
+            "\nFestive" +
+            "\nSpooky" +
+            "\nChinese" +
+            "\nVHS");
         writer.Close();
     }
 
-    #endregion
+#endregion
 
-    #region description files
+#region description files
     private void MakeDescriptFile(string pathEnd)
     {
         string path = Application.persistentDataPath + pathEnd;
@@ -395,7 +311,7 @@ public class Manager : MonoBehaviour
             "\nWeather-based" +
             "\nTraveling" +
             "\nCleaning" +
-            "\nInventory" +
+            "\nInventory-Managing" +
             "\nAlchemy" +
             "\nBrewing" +
             "\nShopping" +
@@ -428,17 +344,20 @@ public class Manager : MonoBehaviour
             "\nClue-based" +
             "\nDemolition" +
             "\nChemical-based" +
-            "\nConsole-controlled" +
+            "\nChristmas" +
             "\nPaper-folding" +
             "\nTeam-based" +
             "\nMineral-based" +
             "\nSize-based" +
-            "\nGardening");
+            "\nGardening" +
+            "\nScavenging" +
+            "\nMotion-controlled" +
+            "\nHalloween");
         writer.Close();
     }
-    #endregion
+#endregion
 
-    #region Base files
+#region Base files
     private void MakeBaseFile(string pathEnd)
     {
         string path = Application.persistentDataPath + pathEnd;
@@ -513,13 +432,14 @@ public class Manager : MonoBehaviour
             "\nGod" +
             "\nBrawler" +
             "\nPing Pong" +
-            "\nDress-up");
+            "\nDress-up" +
+            "\nMaker");
         writer.Close();
         
     }
-    #endregion
+#endregion
 
-    #region Base program
+#region Base program
     private string ReadTextFile(string path)
     {
         string text;
@@ -533,7 +453,6 @@ public class Manager : MonoBehaviour
     
     private void FixedUpdate()
     {
-
         if(setFirst && firstLock)
         {
             firstRoll.text = firstList[UnityEngine.Random.Range(0, firstList.Length)].ToString();
@@ -616,61 +535,39 @@ public class Manager : MonoBehaviour
     {
         if (checkString == "Input New Setting")
         {
-            if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)
-            {
-                AddNew(settingStringPC, line);
-                holdSetting = ReadTextFile(settingStringPC);
-            }
-            else if (Application.platform == RuntimePlatform.Android)
-            {
-                AddNew(Application.persistentDataPath + "/Settings.txt", line);
-                holdSetting = ReadTextFile(Application.persistentDataPath + "/Settings.txt");
-            }
-            else
-            {
-                AddNew(Path.Combine(Application.streamingAssetsPath + "/Settings.txt"), line);
-                holdSetting = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Settings.txt"));
-            }
+#if UNITY_EDITOR
+            AddNew(settingStringPC, line);
+            holdSetting = ReadTextFile(settingStringPC);
+#else
+            AddNew(Application.persistentDataPath + "/Settings.txt", line);
+            holdSetting = ReadTextFile(Application.persistentDataPath + "/Settings.txt");
+#endif
+            
 
             firstList = holdSetting.Split('\n');
         }
         else if (checkString == "Input New Descript")
         {
-            if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)
-            {
-                AddNew(descriptStringPC, line);
-                holdDescript = ReadTextFile(descriptStringPC);
-            }
-            else if (Application.platform == RuntimePlatform.Android)
-            {
-                AddNew(Application.persistentDataPath + "/Descript.txt", line);
+
+#if UNITY_EDITOR
+            AddNew(descriptStringPC, line);
+            holdDescript = ReadTextFile(descriptStringPC);
+#else
+            AddNew(Application.persistentDataPath + "/Descript.txt", line);
                 holdDescript = ReadTextFile(Application.persistentDataPath + "/Descript.txt");
-            }
-            else
-            {
-                AddNew(Path.Combine(Application.streamingAssetsPath + "/Descript.txt"), line);
-                holdDescript = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Descript.txt"));
-            }
+#endif
             
             secondList = holdDescript.Split('\n');
         }
-        else if (true)
+        else if (checkString == "Input New Base")
         {
-            if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)
-            {
-                AddNew(baseStringPC, line);
-                holdBase = ReadTextFile(baseStringPC);
-            }
-            else if (Application.platform == RuntimePlatform.Android)
-            {
-                AddNew(Application.persistentDataPath + "/Base.txt", line);
-                holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
-            }
-            else
-            {
-                AddNew(Path.Combine(Application.streamingAssetsPath + "/Base.txt"), line);
-                holdBase = ReadTextFile(Path.Combine(Application.streamingAssetsPath + "/Base.txt"));
-            }
+#if UNITY_EDITOR
+            AddNew(baseStringPC, line);
+            holdBase = ReadTextFile(baseStringPC);
+#else
+            AddNew(Application.persistentDataPath + "/Base.txt", line);
+            holdBase = ReadTextFile(Application.persistentDataPath + "/Base.txt");
+#endif
             
             thirdList = holdBase.Split('\n');
         }
@@ -689,42 +586,27 @@ public class Manager : MonoBehaviour
     {
         if (resetCheck)
         {
-            if (Application.platform != RuntimePlatform.Android && Application.platform != RuntimePlatform.IPhonePlayer)
-            {
-                StreamWriter firstSet = new StreamWriter(settingStringPC, false);
-                firstSet.Write(holdSettingReset);
-                firstSet.Close();
-                StreamWriter secondSet = new StreamWriter(descriptStringPC, false);
-                secondSet.Write(holdDescriptReset);
-                secondSet.Close();
-                StreamWriter thirdSet = new StreamWriter(baseStringPC, false);
-                thirdSet.Write(holdBaseReset);
-                thirdSet.Close();
-            }
-            else if (Application.platform == RuntimePlatform.Android)
-            {
-                StreamWriter firstSet = new StreamWriter(Application.persistentDataPath + "/Settings.txt", false);
-                firstSet.Write(holdSettingReset);
-                firstSet.Close();
-                StreamWriter secondSet = new StreamWriter(Application.persistentDataPath + "/Descript.txt", false);
-                secondSet.Write(holdDescriptReset);
-                secondSet.Close();
-                StreamWriter thirdSet = new StreamWriter(Application.persistentDataPath + "/Base.txt", false);
-                thirdSet.Write(holdBaseReset);
-                thirdSet.Close();
-            }
-            else
-            {
-                StreamWriter firstSet = new StreamWriter(Path.Combine(Application.streamingAssetsPath + "/Settings.txt"), false);
-                firstSet.Write(holdSettingReset);
-                firstSet.Close();
-                StreamWriter secondSet = new StreamWriter(Path.Combine(Application.streamingAssetsPath + "/Descript.txt"), false);
-                secondSet.Write(holdDescriptReset);
-                secondSet.Close();
-                StreamWriter thirdSet = new StreamWriter(Path.Combine(Application.streamingAssetsPath + "/Base.txt"), false);
-                thirdSet.Write(holdBaseReset);
-                thirdSet.Close();
-            }
+#if UNITY_EDITOR
+            StreamWriter firstSet = new StreamWriter(settingStringPC, false);
+            firstSet.Write(holdSettingReset);
+            firstSet.Close();
+            StreamWriter secondSet = new StreamWriter(descriptStringPC, false);
+            secondSet.Write(holdDescriptReset);
+            secondSet.Close();
+            StreamWriter thirdSet = new StreamWriter(baseStringPC, false);
+            thirdSet.Write(holdBaseReset);
+            thirdSet.Close();
+#else
+            StreamWriter firstSet = new StreamWriter(Application.persistentDataPath + "/Settings.txt", false);
+            firstSet.Write(holdSettingReset);
+            firstSet.Close();
+            StreamWriter secondSet = new StreamWriter(Application.persistentDataPath + "/Descript.txt", false);
+            secondSet.Write(holdDescriptReset);
+            secondSet.Close();
+            StreamWriter thirdSet = new StreamWriter(Application.persistentDataPath + "/Base.txt", false);
+            thirdSet.Write(holdBaseReset);
+            thirdSet.Close();
+#endif
             
             
             resetText.text = "All lists reset to default";
@@ -753,7 +635,7 @@ public class Manager : MonoBehaviour
                Application.Quit ();
 #endif
     }
-    #endregion
+#endregion
 }
 
 
