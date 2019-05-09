@@ -80,6 +80,10 @@ public class Manager : MonoBehaviour
         holdDescriptReset = ReadTextFile(descriptStringDefaultPC);
         holdBaseReset = ReadTextFile(baseStringDefaultPC);
 #else
+        MakeSettingsFile("/SettingReset.txt");
+        MakeDescriptFile("/DescriptReset.txt");
+        MakeBaseFile("/BaseReset.txt");
+
         if (File.Exists(Application.persistentDataPath + "/Setting.txt"))
         {
 
